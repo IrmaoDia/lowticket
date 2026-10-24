@@ -1,10 +1,10 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { Apple, ArrowRight, Blocks, Box, Castle, ChefHat, Check, ChevronDown, ClipboardList, Coffee, Croissant, FileText, Film, IceCreamBowl, Layers3, Menu, PackageOpen, PanelsTopLeft, Palette, Pause, PawPrint, Pizza, Play, Puzzle, Rocket, Ruler, Scissors, ShieldCheck, ShoppingBag, Sparkles, Store, Tags, Theater, Wrench, X, ZoomIn, type LucideIcon } from 'lucide-react';
+import { Apple, ArrowRight, Blocks, Box, Castle, ChefHat, Check, ChevronDown, ClipboardList, Coffee, Croissant, FileText, Film, Gift, IceCreamBowl, Layers3, Menu, PackageOpen, PanelsTopLeft, Palette, Pause, PawPrint, Pizza, Play, Puzzle, Rocket, Ruler, Scissors, ShieldCheck, ShoppingBag, Sparkles, Store, Tags, Theater, Wrench, X, ZoomIn, type LucideIcon } from 'lucide-react';
 
 const icons: Record<string, LucideIcon> = {
   apple: Apple, arrow: ArrowRight, blocks: Blocks, box: Box, castle: Castle,
   chef: ChefHat, check: Check, chevron: ChevronDown, clipboard: ClipboardList,
-  coffee: Coffee, croissant: Croissant, file: FileText, film: Film,
+  coffee: Coffee, croissant: Croissant, file: FileText, film: Film, gift: Gift,
   icecream: IceCreamBowl, layers: Layers3, menu: Menu, package: PackageOpen,
   panels: PanelsTopLeft, palette: Palette, pause: Pause, paw: PawPrint, pizza: Pizza, play: Play,
   puzzle: Puzzle, rocket: Rocket, ruler: Ruler, scissors: Scissors,
@@ -46,7 +46,7 @@ export function SectionHeading({ eyebrow, title, description, light = false, chi
   </div>;
 }
 
-export function Modal({ title, children, onClose, wide = false }: { title: string; children: ReactNode; onClose: () => void; wide?: boolean }) {
+export function Modal({ title, children, onClose, wide = false, className = '' }: { title: string; children: ReactNode; onClose: () => void; wide?: boolean; className?: string }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const dialog = ref.current;
@@ -55,7 +55,7 @@ export function Modal({ title, children, onClose, wide = false }: { title: strin
     document.body.style.overflow = 'hidden';
     return () => { dialog?.close(); document.body.style.overflow = previousOverflow; };
   }, []);
-  return <dialog ref={ref} className={`modal ${wide ? 'modal-wide' : ''}`} onClose={event => { if (!event.currentTarget.open) onClose(); }} onClick={event => { if (event.target === event.currentTarget) onClose(); }} aria-labelledby="modal-title">
+  return <dialog ref={ref} className={`modal ${wide ? 'modal-wide' : ''} ${className}`} onClose={event => { if (!event.currentTarget.open) onClose(); }} onClick={event => { if (event.target === event.currentTarget) onClose(); }} aria-labelledby="modal-title">
     <div className="modal-content">
       <div className="modal-header"><h2 id="modal-title">{title}</h2><button className="icon-button" onClick={onClose} aria-label="Fechar"><Icon name="x" /></button></div>
       {children}

@@ -23,9 +23,9 @@ npm.cmd run preview
 
 ## Configuração da oferta
 
-Edite `src/config.ts` para alterar nome, preços, condições, textos, imagens, links HTTPS de checkout, e-mail de suporte e links dos documentos legais. Os preços iniciais são R$ 19,90 e R$ 37,90, pagamento único, sem parcelamento ou desconto inventado.
+Edite `src/config.ts` para alterar nome, preços, condições, textos, imagens, links HTTPS de checkout, e-mail de suporte e links dos documentos legais. O Essencial custa R$ 14,90 e o Completo custa R$ 24,90, com pagamento único. Ao clicar no Essencial, um popup oferece o Completo por R$ 17,90, incluindo os quatro bônus por mais R$ 3,00. Aceitar segue para o checkout especial; recusar segue para o Essencial. Fechar o popup ou pressionar Escape retorna à página sem selecionar uma compra.
 
-Os checkouts estão vazios, porque nenhum link foi fornecido. Os botões abrem uma mensagem acessível de indisponibilidade; não simulam pagamento, entrega ou compra concluída. Ao fornecer uma URL HTTPS real, o botão do Essencial passa a abrir o checkout. O Completo também exige `bonusesReady: true`: ative somente depois de produzir e revisar os quatro bônus. O e-mail de suporte, quando configurado, aparece no diálogo de indisponibilidade. O cabeçalho de navegação, o rodapé completo e as instruções de recebimento foram removidos a pedido. Os botões de compra têm efeito 3D e pulsação suave, desativada quando o dispositivo solicita movimento reduzido.
+Os três checkouts estão vazios, porque nenhum link foi fornecido. Configure `plans.essential.checkoutUrl` para R$ 14,90, `plans.complete.checkoutUrl` para R$ 24,90 e `upgradeOffer.checkoutUrl` para o Completo por R$ 17,90. A oferta especial exige um link próprio; ela não reutiliza o checkout de R$ 24,90. Enquanto os destinos estiverem vazios, cada escolha mostra a indisponibilidade com o plano e o preço escolhidos, sem simular pagamento. As duas opções do Completo também exigem `bonusesReady: true`: ative somente depois de produzir e revisar os quatro bônus. O e-mail de suporte, quando configurado, aparece no diálogo de indisponibilidade. O cabeçalho de navegação, o rodapé completo e as instruções de recebimento foram removidos a pedido. Os botões de compra têm efeito 3D e pulsação suave, desativada quando o dispositivo solicita movimento reduzido.
 
 Atualize também os metadados em `index.html` se mudar o nome ou as características do produto.
 
@@ -43,7 +43,7 @@ As cinco prévias usam `object-fit: contain`, preservando textos e medidas sem c
 
 1. Adicionar e revisar o PDF original. Os mockups, as prévias e as imagens das seções atuais já foram fornecidos.
 2. Produzir e revisar os quatro bônus antes de ativar `bonusesReady`.
-3. Configurar os dois links de checkout, o contato de suporte e os documentos legais.
+3. Configurar os três links de checkout, o contato de suporte e os documentos legais.
 4. Conferir preço, garantia, acesso por e-mail e a entrega real na plataforma de pagamento.
 5. Fazer uma compra de teste na plataforma escolhida. Esta landing page apenas direciona ao checkout; o pagamento, envio por e-mail e reembolso pertencem à plataforma.
 
@@ -54,6 +54,9 @@ Com `npm run dev -- --port 4173 --strictPort` em execução:
 ```sh
 node scripts/verify.mjs
 node scripts/verify-gallery.mjs
+node scripts/verify-checkouts.mjs
 ```
 
 Os scripts usam Playwright com Chrome/Edge instalado, ou `BROWSER_EXECUTABLE` para informar outro caminho. Verificam os carrosséis, a direção e o loop das cenas, accordion, âncora do CTA, mensagens dos checkouts, fechamento por Escape, ausência de overflow em seis larguras de 320 a 1440 px e erros de JavaScript. Capturas locais ficam em `.qa/` (ignorado).
+
+`verify-checkouts.mjs` usa o servidor de desenvolvimento Vite e injeta três URLs fictícias somente no navegador de teste. Verifica se aceitar, recusar e comprar diretamente usam os destinos distintos. Nenhum pagamento real é feito e os arquivos de configuração permanecem inalterados.
