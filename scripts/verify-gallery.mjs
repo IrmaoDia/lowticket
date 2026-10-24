@@ -28,9 +28,9 @@ try {
 
   await gallery.locator('button').nth(2).click();
   await expect(page.getByRole('dialog')).toBeVisible();
-  await expect(page.getByRole('dialog').locator('img')).toHaveAttribute('src', '/assets/03_cozinha_passo_a_passo_3d.png');
+  await expect(page.getByRole('dialog').locator('img')).toHaveAttribute('src', '/assets/03_cozinha_passo_a_passo_3d.webp');
   await page.getByRole('button', { name: 'Próxima', exact: true }).click();
-  await expect(page.getByRole('dialog').locator('img')).toHaveAttribute('src', '/assets/04_mercadinho_resultado_3d.png');
+  await expect(page.getByRole('dialog').locator('img')).toHaveAttribute('src', '/assets/04_mercadinho_resultado_3d.webp');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
 
@@ -86,7 +86,7 @@ try {
   await page.locator('#por-dentro').screenshot({ path: '.qa/carousel-mobile.png' });
   await page.locator('.bonuses-section').screenshot({ path: '.qa/bonus-images-mobile.png' });
   await page.locator('.catalog-mockup').scrollIntoViewIfNeeded();
-  await expect(page.locator('.catalog-mockup>img')).toHaveAttribute('src', '/assets/Mini Mundos de Brincar_ Livro Criativo.png');
+  await expect(page.locator('.catalog-mockup>img')).toHaveAttribute('src', '/assets/Mini Mundos de Brincar_ Livro Criativo.webp');
   await page.locator('#ofertas').scrollIntoViewIfNeeded();
   await expect(page.locator('.offer-mockup>img')).toHaveAttribute('src', await page.locator('.hero-art>img').getAttribute('src'));
   await expect(page.locator('.plan-seal')).toHaveText('Maisescolhido');

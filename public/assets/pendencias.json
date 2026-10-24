@@ -2,12 +2,12 @@
   "status": "imagens-da-pagina-integradas-pdf-e-oferta-pendentes",
   "productPdfProvided": false,
   "providedImages": [
-    "Kit Criativo Mini Mundos de Brincar.png",
-    "Mini Mundos de Brincar_ Livro Criativo.png",
-    "01_cozinha_resultado_medidas.png", "02_cozinha_plano_de_corte.png",
-    "03_cozinha_passo_a_passo_3d.png", "04_mercadinho_resultado_3d.png",
-    "05_teatro_montagem_3d.png", "bonus01.png", "bonus02.png", "bonus03.png", "bonus04.png",
-    "crianca1.png", "crianca2.png", "crianca3.png", "crianca4.png", "crianca5.png"
+    "Kit Criativo Mini Mundos de Brincar.webp",
+    "Mini Mundos de Brincar_ Livro Criativo.webp",
+    "01_cozinha_resultado_medidas.webp", "02_cozinha_plano_de_corte.webp",
+    "03_cozinha_passo_a_passo_3d.webp", "04_mercadinho_resultado_3d.webp",
+    "05_teatro_montagem_3d.webp", "bonus01.webp", "bonus02.webp", "bonus03.webp", "bonus04.webp",
+    "crianca1.webp", "crianca2.webp", "crianca3.webp", "crianca4.webp", "crianca5.webp"
   ],
   "images": [],
   "offer": ["checkout-essencial", "checkout-completo", "producao-dos-quatro-bonus", "email-suporte", "politica-privacidade", "termos-uso"]
