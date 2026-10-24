@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { formatPrice, siteConfig } from '../config';
-import { Icon, Modal, SectionHeading } from './ui';
+import { Asset, Icon, Modal, SectionHeading } from './ui';
 
 type PlanKey = keyof typeof siteConfig.plans;
 export const isCheckoutUrl = (url: string) => {
@@ -19,11 +19,14 @@ export function Offers() {
     else setSelected(plan);
   }
   return <section id="ofertas" className="section offers-section"><div className="container">
-    <SectionHeading eyebrow="UM PEQUENO COMEÇO. UM MUNDO DE POSSIBILIDADES." title="Escolha Seu Pacote e Comece a Criar" description="Os 20 projetos estão nos dois planos. Escolha se quer levar também os complementos." />
+    <SectionHeading eyebrow="UM PEQUENO COMEÇO. UM MUNDO DE POSSIBILIDADES." title="Escolha Seu Pacote e Comece a Criar" description="Os 20 projetos estão nos dois planos. Escolha se quer levar também os complementos.">
+      <Asset src={siteConfig.images.hero} alt="Kit Criativo Mini Mundos de Brincar com o catálogo e os quatro bônus" className="offer-mockup" children={null} />
+    </SectionHeading>
     <div className="plans-grid">{(['essential', 'complete'] as const).map(key => {
       const plan = siteConfig.plans[key];
       return <article className={`plan-card ${key === 'complete' ? 'plan-complete' : ''}`} key={key}>
-        <div className="plan-topline"><span className="plan-category">SEU CATÁLOGO DIGITAL</span>{key === 'complete' && <span className="plan-badge"><Icon name="sparkles" size={13} />COM 4 BÔNUS</span>}</div>
+        {key === 'complete' && <span className="plan-seal">Mais<br />escolhido</span>}
+        <div className="plan-topline"><span className="plan-category">SEU CATÁLOGO DIGITAL</span></div>
         <h3>Plano {plan.name}</h3><p className="plan-description">{key === 'essential' ? 'Tudo para construir seus primeiros mundos.' : 'Os projetos e um toque extra de criatividade.'}</p>
         <div className="price">{formatPrice(plan.price)}</div><p className="payment-label">{siteConfig.paymentLabel}</p>
         <ul className="plan-features">{features[key].map(feature => <li key={feature}><Icon name="check" size={17} /><span>{feature}</span></li>)}</ul>
@@ -43,8 +46,7 @@ export function Offers() {
 }
 
 export function Guarantee() {
-  return <section className="section-cream guarantee-section"><div className="container guarantee-grid">
+  return <section className="section-cream guarantee-section"><div className="container guarantee-content">
     <div className="guarantee-block"><div className="guarantee-seal"><Icon name="shield" size={43} /><strong>{siteConfig.guaranteeDays}</strong><span>DIAS</span></div><div><h2>Garantia de {siteConfig.guaranteeDays} Dias</h2><p>{siteConfig.guarantee}</p></div></div>
-    <div className="access-block"><h2>Do seu clique ao seu próximo projeto.</h2><ol><li><span>1</span>Escolha seu pacote.</li><li><span>2</span>Finalize o pagamento.</li><li><span>3</span>{siteConfig.delivery}</li></ol></div>
   </div></section>;
 }

@@ -1,24 +1,10 @@
-import { useState } from 'react';
 import { siteConfig } from '../config';
-import { Asset, Icon, Logo, OfferLink } from './ui';
+import { Asset, Icon, OfferLink } from './ui';
 
 export function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
   return <>
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <div className="announcement">{siteConfig.hero.intro}</div>
-    <header className="header">
-      <div className="container header-inner">
-        <Logo light />
-        <button className="icon-button menu-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} aria-controls="main-nav" onClick={() => setMenuOpen(!menuOpen)}><Icon name={menuOpen ? 'x' : 'menu'} /></button>
-        <nav id="main-nav" className={menuOpen ? 'navigation is-open' : 'navigation'} aria-label="Navegação principal">
-          <a href="#por-dentro" onClick={() => setMenuOpen(false)}>Por dentro do guia</a>
-          <a href="#projetos" onClick={() => setMenuOpen(false)}>Os projetos</a>
-          <a href="#duvidas" onClick={() => setMenuOpen(false)}>Dúvidas</a>
-          <a className="nav-cta" href="#ofertas" onClick={() => setMenuOpen(false)}>Escolher meu pacote<Icon name="arrow" size={16} /></a>
-        </nav>
-      </div>
-    </header>
   </>;
 }
 
@@ -45,13 +31,14 @@ export function Hero() {
   return <section className="hero" id="inicio" aria-labelledby="hero-title">
     <div className="container hero-grid" id="conteudo">
       <div className="hero-copy">
-        <div className="hero-label"><span /> Grandes histórias começam com pouco.</div>
         <h1 id="hero-title">{siteConfig.hero.before} <em>{siteConfig.hero.highlight}</em> {siteConfig.hero.after}</h1>
+        <Asset src={siteConfig.images.hero} alt="Kit Criativo Mini Mundos de Brincar: catálogo de 20 projetos em papelão e os quatro bônus" className="hero-art" eager>
+          <div className="page-placeholder"><Icon name="file" size={46} /><span>Imagem do Kit Criativo Mini Mundos de Brincar</span></div>
+        </Asset>
         <p>{siteConfig.hero.description}</p>
         <OfferLink>{siteConfig.hero.cta}</OfferLink>
         <span className="hero-fineprint"><Icon name="file" size={15} />{siteConfig.accessLabel}</span>
       </div>
-      <ProductMockup hero />
     </div>
     <div className="container hero-benefits">
       {['20 projetos ilustrados em 3D', 'Medidas e planos de corte', 'Feitos com papelão', 'Consulte pelo celular ou computador'].map(text => <span key={text}><Icon name="check" size={18} />{text}</span>)}

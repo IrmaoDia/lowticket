@@ -1,14 +1,14 @@
 {
-  "status": "aguardando-arquivos-reais",
+  "status": "imagens-da-pagina-integradas-pdf-e-oferta-pendentes",
   "productPdfProvided": false,
-  "images": [
-    "produto-principal.png", "mockup-hero.png",
-    "previa-resultado.png", "previa-medidas.png", "previa-montagem.png", "previa-acessorios.png",
-    "projeto-01.png", "projeto-02.png", "projeto-03.png", "projeto-04.png", "projeto-05.png",
-    "projeto-06.png", "projeto-07.png", "projeto-08.png", "projeto-09.png", "projeto-10.png",
-    "projeto-11.png", "projeto-12.png", "projeto-13.png", "projeto-14.png", "projeto-15.png",
-    "projeto-16.png", "projeto-17.png", "projeto-18.png", "projeto-19.png", "projeto-20.png",
-    "bonus-01.png", "bonus-02.png", "bonus-03.png", "bonus-04.png"
+  "providedImages": [
+    "Kit Criativo Mini Mundos de Brincar.png",
+    "Mini Mundos de Brincar_ Livro Criativo.png",
+    "01_cozinha_resultado_medidas.png", "02_cozinha_plano_de_corte.png",
+    "03_cozinha_passo_a_passo_3d.png", "04_mercadinho_resultado_3d.png",
+    "05_teatro_montagem_3d.png", "bonus01.png", "bonus02.png", "bonus03.png", "bonus04.png",
+    "crianca1.png", "crianca2.png", "crianca3.png", "crianca4.png", "crianca5.png"
   ],
+  "images": [],
   "offer": ["checkout-essencial", "checkout-completo", "producao-dos-quatro-bonus", "email-suporte", "politica-privacidade", "termos-uso"]
 }

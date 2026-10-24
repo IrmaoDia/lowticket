@@ -25,21 +25,21 @@ npm.cmd run preview
 
 Edite `src/config.ts` para alterar nome, preços, condições, textos, imagens, links HTTPS de checkout, e-mail de suporte e links dos documentos legais. Os preços iniciais são R$ 19,90 e R$ 37,90, pagamento único, sem parcelamento ou desconto inventado.
 
-Os checkouts estão vazios, porque nenhum link foi fornecido. Os botões abrem uma mensagem acessível de indisponibilidade; não simulam pagamento, entrega ou compra concluída. Ao fornecer uma URL HTTPS real, o botão do Essencial passa a abrir o checkout. O Completo também exige `bonusesReady: true`: ative somente depois de produzir e revisar os quatro bônus. Os documentos legais e o suporte ainda não foram fornecidos; seus botões informam essa pendência até receberem os destinos reais.
+Os checkouts estão vazios, porque nenhum link foi fornecido. Os botões abrem uma mensagem acessível de indisponibilidade; não simulam pagamento, entrega ou compra concluída. Ao fornecer uma URL HTTPS real, o botão do Essencial passa a abrir o checkout. O Completo também exige `bonusesReady: true`: ative somente depois de produzir e revisar os quatro bônus. O e-mail de suporte, quando configurado, aparece no diálogo de indisponibilidade. O cabeçalho de navegação, o rodapé completo e as instruções de recebimento foram removidos a pedido. Os botões de compra têm efeito 3D e pulsação suave, desativada quando o dispositivo solicita movimento reduzido.
 
 Atualize também os metadados em `index.html` se mudar o nome ou as características do produto.
 
 ## Imagens e conteúdo pendentes
 
-O repositório original contém somente imagens e PDFs de produtos natalinos. Nenhuma imagem nem PDF do Mini Mundos foi disponibilizado. Não foram reutilizadas imagens de outros produtos, baixadas fotos genéricas ou geradas páginas fictícias. As capas em CSS são representações provisórias, identificadas como ilustrativas.
+O mockup fornecido `Kit Criativo Mini Mundos de Brincar.png` está em `public/assets` e aparece logo abaixo do título principal e do título da oferta. A seção do catálogo usa `Mini Mundos de Brincar_ Livro Criativo.png`. As cinco prévias fornecidas, as quatro capas `bonus01.png` a `bonus04.png` e as cinco cenas `crianca1.png` a `crianca5.png` também estão integradas. As cenas substituem o antigo grid de projetos, os filtros e o botão de expansão. A seção mantém o título e mostra somente um carrossel de imagens em loop da esquerda para a direita, sem legendas nem controles. As imagens originais são preservadas integralmente. O PDF continua pendente. Toda a tipografia da página usa Montserrat; os textos das imagens originais são preservados.
 
 Consulte a lista completa em `public/assets/README.md` e `public/assets/pendencias.json`. Coloque os arquivos reais nessa pasta com os nomes previstos e reconstrua o projeto. A detecção ocorre durante o build com `import.meta.glob`, evitando requisições 404 dos arquivos ausentes. Imagens podem ter seus caminhos alterados no arquivo de configuração.
 
-As quatro prévias do PDF usam `object-fit: contain`, preservando textos e medidas sem cortes. A ampliação é habilitada automaticamente quando o arquivo existe. O diálogo mostra a imagem no tamanho disponível, permite rolagem vertical e navegação entre as prévias, e pode ser fechado com Escape, botão Fechar ou clique no fundo.
+As cinco prévias usam `object-fit: contain`, preservando textos e medidas sem cortes, sem legendas ou numeração adicionadas pela página. O carrossel percorre as imagens em loop contínuo, sem controles visuais, enquanto está visível. Uma segunda sequência das mesmas imagens permite a passagem da última à primeira sem retorno visível; essas cópias são ocultadas de leitores de tela e da navegação por Tab. O movimento pausa ao passar o mouse, receber foco, abrir a ampliação ou interagir por toque. `prefers-reduced-motion` desativa a rolagem automática e as cópias, mantendo a navegação manual. A ampliação mostra a imagem no tamanho disponível, permite rolagem vertical e navegação entre as prévias, e pode ser fechada com Escape, botão Fechar ou clique no fundo. A presença das capas dos bônus não comprova que seus PDFs estão prontos: `bonusesReady` continua desativado.
 
 ## Antes de abrir as vendas
 
-1. Adicionar o PDF original e as imagens reais do catálogo, dos 20 projetos e dos quatro bônus.
+1. Adicionar e revisar o PDF original. Os mockups, as prévias e as imagens das seções atuais já foram fornecidos.
 2. Produzir e revisar os quatro bônus antes de ativar `bonusesReady`.
 3. Configurar os dois links de checkout, o contato de suporte e os documentos legais.
 4. Conferir preço, garantia, acesso por e-mail e a entrega real na plataforma de pagamento.
@@ -51,6 +51,7 @@ Com `npm run dev -- --port 4173 --strictPort` em execução:
 
 ```sh
 node scripts/verify.mjs
+node scripts/verify-gallery.mjs
 ```
 
-O script usa Playwright com Chrome/Edge instalado, ou `BROWSER_EXECUTABLE` para informar outro caminho. Verifica os 20 projetos, filtros, accordion, menus e âncoras, mensagens dos checkouts, fechamento por Escape, ausência de overflow em 320/375/768/1440 px e erros de JavaScript. Capturas locais ficam em `.qa/` (ignorado).
+Os scripts usam Playwright com Chrome/Edge instalado, ou `BROWSER_EXECUTABLE` para informar outro caminho. Verificam os carrosséis, a direção e o loop das cenas, accordion, âncora do CTA, mensagens dos checkouts, fechamento por Escape, ausência de overflow em seis larguras de 320 a 1440 px e erros de JavaScript. Capturas locais ficam em `.qa/` (ignorado).

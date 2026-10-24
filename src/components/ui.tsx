@@ -1,12 +1,12 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { Apple, ArrowRight, Blocks, Box, Castle, ChefHat, Check, ChevronDown, ClipboardList, Coffee, Croissant, FileText, Film, IceCreamBowl, Layers3, Menu, PackageOpen, PanelsTopLeft, Palette, PawPrint, Pizza, Puzzle, Rocket, Ruler, Scissors, ShieldCheck, ShoppingBag, Sparkles, Store, Tags, Theater, Wrench, X, ZoomIn, type LucideIcon } from 'lucide-react';
+import { Apple, ArrowRight, Blocks, Box, Castle, ChefHat, Check, ChevronDown, ClipboardList, Coffee, Croissant, FileText, Film, IceCreamBowl, Layers3, Menu, PackageOpen, PanelsTopLeft, Palette, Pause, PawPrint, Pizza, Play, Puzzle, Rocket, Ruler, Scissors, ShieldCheck, ShoppingBag, Sparkles, Store, Tags, Theater, Wrench, X, ZoomIn, type LucideIcon } from 'lucide-react';
 
 const icons: Record<string, LucideIcon> = {
   apple: Apple, arrow: ArrowRight, blocks: Blocks, box: Box, castle: Castle,
   chef: ChefHat, check: Check, chevron: ChevronDown, clipboard: ClipboardList,
   coffee: Coffee, croissant: Croissant, file: FileText, film: Film,
   icecream: IceCreamBowl, layers: Layers3, menu: Menu, package: PackageOpen,
-  panels: PanelsTopLeft, palette: Palette, paw: PawPrint, pizza: Pizza,
+  panels: PanelsTopLeft, palette: Palette, pause: Pause, paw: PawPrint, pizza: Pizza, play: Play,
   puzzle: Puzzle, rocket: Rocket, ruler: Ruler, scissors: Scissors,
   shield: ShieldCheck, shopping: ShoppingBag, sparkles: Sparkles,
   store: Store, tags: Tags, theater: Theater, tools: Wrench, x: X, zoom: ZoomIn,
@@ -37,10 +37,11 @@ export function OfferLink({ children, className = '' }: { children: ReactNode; c
   return <a className={`button button-primary ${className}`} href="#ofertas">{children}<Icon name="arrow" size={19} /></a>;
 }
 
-export function SectionHeading({ eyebrow, title, description, light = false }: { eyebrow: string; title: string; description?: string; light?: boolean }) {
+export function SectionHeading({ eyebrow, title, description, light = false, children }: { eyebrow: string; title: string; description?: string; light?: boolean; children?: ReactNode }) {
   return <div className={`section-heading ${light ? 'heading-light' : ''}`}>
     <span className="eyebrow">{eyebrow}</span>
     <h2>{title}</h2>
+    {children}
     {description && <p>{description}</p>}
   </div>;
 }

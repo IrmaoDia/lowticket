@@ -19,8 +19,8 @@ export const siteConfig = {
     complete: { name: 'Completo', price: 37.9, checkoutUrl: '' },
   },
   images: {
-    hero: '/assets/mockup-hero.png',
-    product: '/assets/produto-principal.png',
+    hero: '/assets/Kit Criativo Mini Mundos de Brincar.png',
+    product: '/assets/Mini Mundos de Brincar_ Livro Criativo.png',
   },
   hero: {
     intro: '20 PROJETOS EM PAPELÃO • GUIA DIGITAL ILUSTRADO EM 3D',
@@ -33,10 +33,11 @@ export const siteConfig = {
 };
 
 export const previews = [
-  { title: 'Resultado final em 3D', description: 'Veja exatamente o que você vai construir.', image: '/assets/previa-resultado.png', icon: 'box' },
-  { title: 'Medidas e plano de corte', description: 'Confira as peças e medidas antes de começar.', image: '/assets/previa-medidas.png', icon: 'ruler' },
-  { title: 'Montagem ilustrada', description: 'Acompanhe cada etapa com imagens em 3D.', image: '/assets/previa-montagem.png', icon: 'layers' },
-  { title: 'Detalhes e acessórios', description: 'Aprenda a montar também os pequenos detalhes.', image: '/assets/previa-acessorios.png', icon: 'puzzle' },
+  { title: 'Cozinha: resultado e medidas', image: '/assets/01_cozinha_resultado_medidas.png' },
+  { title: 'Cozinha: plano de corte', image: '/assets/02_cozinha_plano_de_corte.png' },
+  { title: 'Cozinha: passo a passo em 3D', image: '/assets/03_cozinha_passo_a_passo_3d.png' },
+  { title: 'Mercadinho: resultado em 3D', image: '/assets/04_mercadinho_resultado_3d.png' },
+  { title: 'Teatro: montagem em 3D', image: '/assets/05_teatro_montagem_3d.png' },
 ] as const;
 
 export const projects = [
@@ -65,6 +66,14 @@ export const projects = [
 export const featuredProjectIds = [1, 5, 3, 8, 10, 14];
 export const themes = [...new Set(projects.map(project => project.theme))];
 
+export const projectScenes = [
+  { image: '/assets/crianca1.png', alt: 'Criança brincando em um foguete de papelão' },
+  { image: '/assets/crianca2.png', alt: 'Crianças brincando em um castelo de papelão' },
+  { image: '/assets/crianca3.png', alt: 'Crianças e cenários de faz de conta em papelão' },
+  { image: '/assets/crianca4.png', alt: 'Um mundo de brincadeiras com cenários de papelão' },
+  { image: '/assets/crianca5.png', alt: 'Imaginação e brincadeiras com brinquedos de papelão' },
+] as const;
+
 export const benefits = [
   { title: 'Medidas prontas', description: 'Altura, largura, profundidade e dimensões das peças para acompanhar os cortes.', icon: 'ruler' },
   { title: 'Lista de materiais', description: 'Veja os materiais e ferramentas indicados para cada projeto.', icon: 'clipboard' },
@@ -77,7 +86,7 @@ export const bonuses = [
   { title: 'Moldes extras de acessórios', cover: 'Pequenos detalhes. Grandes histórias.', subtitle: 'MOLDES EXTRAS', description: 'Moldes complementares de alimentos cenográficos, embalagens e objetos de faz de conta para ampliar as brincadeiras.', icon: 'scissors' },
   { title: 'Guia de acabamentos criativos', cover: 'Mais cor para imaginar.', subtitle: 'ACABAMENTOS CRIATIVOS', description: 'Ideias de cores, pinturas, revestimentos e detalhes para transformar o papelão em brinquedos mais bonitos.', icon: 'palette' },
   { title: '50 ideias de brincadeiras', cover: 'O próximo capítulo é brincar.', subtitle: '50 IDEIAS DE BRINCADEIRAS', description: 'Atividades e pequenas histórias para aproveitar os cenários depois de prontos.', icon: 'sparkles' },
-].map((bonus, index) => ({ ...bonus, id: index + 1, image: `/assets/bonus-${String(index + 1).padStart(2, '0')}.png` }));
+].map((bonus, index) => ({ ...bonus, id: index + 1, image: `/assets/bonus${String(index + 1).padStart(2, '0')}.png` }));
 
 export const faqs = [
   { question: 'Os projetos são feitos com madeira ou papelão?', answer: 'Todos os projetos foram desenvolvidos para montagem com papelão ondulado reforçado e materiais complementares indicados no manual.' },

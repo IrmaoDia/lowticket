@@ -12,18 +12,8 @@ try {
   const response = await page.goto(process.env.PREVIEW_URL || 'http://127.0.0.1:4173', { waitUntil: 'networkidle' });
   expect(response.status()).toBe(200);
   await expect(page.locator('h1')).toHaveCount(1);
-  await expect(page.locator('.project-card')).toHaveCount(6);
-  await page.getByRole('button', { name: 'VER TODOS OS 20 PROJETOS' }).click();
-  await expect(page.locator('.project-card')).toHaveCount(20);
-  await page.getByRole('button', { name: 'Pequenos Comerciantes', exact: true }).click();
-  await expect(page.locator('.project-card')).toHaveCount(5);
-  await expect(page.locator('.project-card').first()).toContainText('Mercadinho Infantil');
-  await page.getByRole('button', { name: 'Pequenos Sonhadores', exact: true }).click();
-  await expect(page.locator('.project-card')).toHaveCount(4);
-  await page.getByRole('button', { name: 'Todos os temas', exact: true }).click();
-  await expect(page.locator('.project-card')).toHaveCount(20);
-  await page.getByRole('button', { name: 'MOSTRAR MENOS PROJETOS' }).click();
-  await expect(page.locator('.project-card')).toHaveCount(6);
+  await expect(page.locator('#projetos .project-card, #projetos .theme-filters, #projetos button')).toHaveCount(0);
+  await expect(page.locator('#projetos .story-group:not(.story-copy) img')).toHaveCount(5);
 
   await page.getByText('Os projetos são feitos com madeira ou papelão?', { exact: true }).click();
   await expect(page.locator('details[open]')).toHaveCount(1);
@@ -44,10 +34,6 @@ try {
   await page.getByRole('button', { name: 'ENTENDI' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
 
-  await page.getByRole('button', { name: 'Política de Privacidade', exact: true }).click();
-  await expect(page.getByRole('dialog')).toContainText('Este documento será disponibilizado');
-  await page.keyboard.press('Escape');
-
   mkdirSync('.qa', { recursive: true });
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: '.qa/desktop.png', fullPage: true });
@@ -59,15 +45,12 @@ try {
   }
   await page.setViewportSize({ width: 375, height: 812 });
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();
-  await expect(page.locator('#main-nav')).toBeVisible();
-  await page.getByRole('link', { name: 'Os projetos', exact: true }).click();
-  await expect(page.locator('#main-nav')).not.toBeVisible();
-  expect(new URL(page.url()).hash).toBe('#projetos');
+  await page.getByRole('link', { name: 'QUERO ACESSAR OS 20 PROJETOS', exact: true }).click();
+  expect(new URL(page.url()).hash).toBe('#ofertas');
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: '.qa/mobile.png', fullPage: true });
   expect(errors, 'Sem erros JavaScript ou recursos locais quebrados').toEqual([]);
-  console.log('OK: 20 projetos, filtros, FAQ, checkouts pendentes, modais, foco, menu mobile e responsividade em seis larguras.');
+  console.log('OK: carrossel de imagens dos projetos, FAQ, checkouts pendentes, modais, foco, CTA e responsividade em seis larguras.');
 } finally {
   await browser.close();
 }
