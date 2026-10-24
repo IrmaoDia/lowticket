@@ -21,6 +21,7 @@ export const siteConfig = {
   images: {
     hero: '/assets/Kit Criativo Mini Mundos de Brincar.webp',
     product: '/assets/Mini Mundos de Brincar_ Livro Criativo.webp',
+    guarantee: '/assets/Selo-de-Garantia-de-7-Dias-PNG-Transparente-Sem-Fundo-1.webp',
   },
   hero: {
     intro: '20 PROJETOS EM PAPELÃO • GUIA DIGITAL ILUSTRADO EM 3D',

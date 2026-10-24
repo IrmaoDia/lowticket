@@ -47,6 +47,6 @@ export function Offers() {
 
 export function Guarantee() {
   return <section className="section-cream guarantee-section"><div className="container guarantee-content">
-    <div className="guarantee-block"><div className="guarantee-seal"><Icon name="shield" size={43} /><strong>{siteConfig.guaranteeDays}</strong><span>DIAS</span></div><div><h2>Garantia de {siteConfig.guaranteeDays} Dias</h2><p>{siteConfig.guarantee}</p></div></div>
+    <div className="guarantee-block"><img className="guarantee-image" src={siteConfig.images.guarantee} alt={`Selo de garantia de ${siteConfig.guaranteeDays} dias`} width={700} height={700} loading="lazy" decoding="async" /><div className="guarantee-copy"><h2>Garantia de {siteConfig.guaranteeDays} Dias</h2><p>{siteConfig.guarantee}</p></div></div>
   </div></section>;
 }
