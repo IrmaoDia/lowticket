@@ -34,7 +34,7 @@ export function Offers() {
     </SectionHeading>
     <div className="plans-grid">{(['essential', 'complete'] as const).map(key => {
       const plan = siteConfig.plans[key];
-      return <article className={`plan-card ${key === 'complete' ? 'plan-complete' : ''}`} key={key}>
+      return <article id={key === 'essential' ? 'plano-essencial' : undefined} className={`plan-card ${key === 'complete' ? 'plan-complete' : ''}`} key={key}>
         {key === 'complete' && <span className="plan-seal">Mais<br />escolhido</span>}
         <div className="plan-topline"><span className="plan-category">SEU CATÁLOGO DIGITAL</span></div>
         <h3>Plano {plan.name}</h3><p className="plan-description">{key === 'essential' ? 'Tudo para construir seus primeiros mundos.' : 'Os projetos e um toque extra de criatividade.'}</p>

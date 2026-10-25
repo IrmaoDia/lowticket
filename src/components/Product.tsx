@@ -15,7 +15,7 @@ export function Product() {
     <ProductMockup />
     <div className="product-text"><span className="eyebrow">FEITO PARA CONSULTAR. FEITO PARA CRIAR.</span><h2>Seu Catálogo de Projetos Está Aqui.</h2><p>20 projetos de brinquedos e cenários de faz de conta feitos com papelão, reunidos em um manual digital para consultar sempre que precisar.</p>
       <ul className="product-list">{[`${siteConfig.pages} páginas em PDF.`, `${siteConfig.projectCount} projetos organizados em cinco temas.`, 'Planos de corte e dimensões.', 'Etapas de montagem ilustradas em 3D.', 'Acesso pelo celular, tablet ou computador.'].map(item => <li key={item}><Icon name="check" size={18} />{item}</li>)}</ul>
-      <a className="text-link" href="#ofertas">Encontrar meu pacote<Icon name="arrow" size={18} /></a>
+      <a className="text-link" href="#plano-essencial">Encontrar meu pacote<Icon name="arrow" size={18} /></a>
     </div>
   </div></section>;
 }

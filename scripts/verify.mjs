@@ -56,9 +56,18 @@ try {
   await page.screenshot({ path: '.qa/upgrade-mobile.png' });
   await page.getByRole('button', { name: 'Fechar', exact: true }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await page.getByRole('link', { name: 'QUERO ACESSAR OS 20 PROJETOS', exact: true }).click();
-  expect(new URL(page.url()).hash).toBe('#ofertas');
+  for (const width of [375, 1440]) {
+    await page.setViewportSize({ width, height: 812 });
+    for (const name of ['QUERO ACESSAR OS 20 PROJETOS', 'QUERO COMEÇAR MEU PRIMEIRO PROJETO', 'Encontrar meu pacote']) {
+      await page.getByRole('link', { name, exact: true }).click();
+      expect(new URL(page.url()).hash).toBe('#plano-essencial');
+      await expect(page.locator('#plano-essencial h3')).toBeInViewport({ ratio: 1 });
+      await expect(page.locator('#plano-essencial .price')).toBeInViewport({ ratio: 1 });
+      expect((await page.locator('#plano-essencial').boundingBox()).y).toBeCloseTo(28, 0);
+      await expect(page.getByRole('dialog')).toHaveCount(0);
+    }
+  }
+  await page.setViewportSize({ width: 375, height: 812 });
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: '.qa/mobile.png', fullPage: true });
   expect(errors, 'Sem erros JavaScript ou recursos locais quebrados').toEqual([]);

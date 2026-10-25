@@ -34,7 +34,7 @@ export function Logo({ light = false }: { light?: boolean }) {
 }
 
 export function OfferLink({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <a className={`button button-primary ${className}`} href="#ofertas">{children}<Icon name="arrow" size={19} /></a>;
+  return <a className={`button button-primary ${className}`} href="#plano-essencial">{children}<Icon name="arrow" size={19} /></a>;
 }
 
 export function SectionHeading({ eyebrow, title, description, light = false, children }: { eyebrow: string; title: string; description?: string; light?: boolean; children?: ReactNode }) {
