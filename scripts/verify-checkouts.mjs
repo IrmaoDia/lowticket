@@ -5,24 +5,23 @@ const executablePath = [process.env.BROWSER_EXECUTABLE, 'C:/Program Files/Google
 const browser = await chromium.launch({ executablePath, headless: true });
 const page = await browser.newPage({ viewport: { width: 375, height: 812 }, reducedMotion: 'reduce' });
 const previewUrl = process.env.PREVIEW_URL || 'http://127.0.0.1:4173';
-const urls = ['https://checkout.example.test/essencial-1490', 'https://checkout.example.test/completo-2490', 'https://checkout.example.test/completo-especial-1790'];
+const urls = ['https://pay.wiapy.com/IPZb58bM65az', 'https://pay.wiapy.com/oy8QeLCFUlw', 'https://pay.wiapy.com/BYUp6V_B_1fp'];
+const errors = [];
+page.on('pageerror', error => errors.push(error.message));
 
 try {
-  // Configuração fictícia apenas no navegador de teste. Não altera arquivos,
-  // não acessa provedores reais e não simula uma compra aprovada.
-  await page.route('**/src/config.ts*', async route => {
-    const response = await route.fetch();
-    let index = 0;
-    const body = (await response.text())
-      .replace(/\bcheckoutUrl:\s*(["'])\1/g, () => `checkoutUrl: ${JSON.stringify(urls[index++])}`)
-      .replace(/\bbonusesReady:\s*false/, 'bonusesReady: true');
-    if (index !== 3) throw new Error('Não foi possível preparar os três destinos de teste.');
-    await route.fulfill({ response, body });
-  });
-  await page.route('https://checkout.example.test/**', route => route.fulfill({ status: 200, contentType: 'text/html', body: '<title>Destino de teste</title>' }));
+  // Confere os destinos configurados interceptando o provedor e o rastreamento.
+  // Não realiza pagamentos nem envia eventos de teste para a UTMify.
+  await page.route('https://cdn.utmify.com.br/**', route => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
+  await page.route('https://pay.wiapy.com/**', route => route.fulfill({ status: 200, contentType: 'text/html', body: '<title>Destino de teste</title>' }));
 
   for (const choice of ['decline', 'accept', 'complete']) {
     await page.goto(previewUrl, { waitUntil: 'networkidle' });
+    const tracking = page.locator('script[src="https://cdn.utmify.com.br/scripts/utms/latest.js"]');
+    await expect(tracking).toHaveCount(1);
+    await expect(tracking).toHaveAttribute('data-utmify-prevent-xcod-sck', '');
+    await expect(tracking).toHaveAttribute('data-utmify-prevent-subids', '');
+    expect(await tracking.evaluate(script => script.async && script.defer)).toBe(true);
     if (choice === 'complete') {
       await page.getByRole('button', { name: 'QUERO O PACOTE COMPLETO', exact: true }).click();
     } else {
@@ -34,6 +33,7 @@ try {
     await page.waitForURL(expected);
     expect(page.url()).toBe(expected);
   }
+  expect(errors, 'Sem erros JavaScript').toEqual([]);
   console.log('OK: recusar → Essencial 14,90; aceitar → Completo especial 17,90; compra direta → Completo 24,90.');
 } finally {
   await browser.close();

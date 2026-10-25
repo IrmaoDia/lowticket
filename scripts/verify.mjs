@@ -9,6 +9,7 @@ page.on('pageerror', error => errors.push(error.message));
 page.on('response', response => { if (response.status() >= 400 && new URL(response.url()).hostname === '127.0.0.1') errors.push(`${response.status()}: ${response.url()}`); });
 
 try {
+  await page.route('https://cdn.utmify.com.br/**', route => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
   const response = await page.goto(process.env.PREVIEW_URL || 'http://127.0.0.1:4173', { waitUntil: 'networkidle' });
   expect(response.status()).toBe(200);
   await expect(page.locator('h1')).toHaveCount(1);
@@ -29,29 +30,14 @@ try {
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect(page.locator('.upgrade-modal .upgrade-price>strong')).toHaveText(/R\$\s*17,90/);
   await expect(page.locator('.upgrade-modal .upgrade-bonuses li')).toHaveCount(4);
-  await page.getByRole('button', { name: /Não, continuar com o Essencial por R\$\s*14,90/ }).click();
-  await expect(page.getByRole('dialog')).toContainText('As vendas ainda não estão abertas');
-  await expect(page.locator('.modal-plan')).toHaveText(/Plano Essencial.*R\$\s*14,90/);
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(buy).toBeFocused();
 
   await buy.click();
-  await page.getByRole('button', { name: /QUERO O COMPLETO POR R\$\s*17,90/ }).click();
-  await expect(page.getByRole('dialog')).toContainText('Pacote Completo em preparação');
-  await expect(page.locator('.modal-plan')).toHaveText(/Plano Completo.*R\$\s*17,90/);
-  await page.getByRole('button', { name: 'ENTENDI' }).click();
-
-  await buy.click();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(buy).toBeFocused();
-
-  await page.getByRole('button', { name: 'QUERO O PACOTE COMPLETO' }).click();
-  await expect(page.getByRole('dialog')).toContainText('Pacote Completo em preparação');
-  await expect(page.locator('.modal-plan')).toHaveText(/Plano Completo.*R\$\s*24,90/);
-  await page.getByRole('button', { name: 'ENTENDI' }).click();
-  await expect(page.getByRole('dialog')).toHaveCount(0);
 
   mkdirSync('.qa', { recursive: true });
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -76,7 +62,7 @@ try {
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: '.qa/mobile.png', fullPage: true });
   expect(errors, 'Sem erros JavaScript ou recursos locais quebrados').toEqual([]);
-  console.log('OK: preços 14,90/24,90, oferta de 17,90, aceitar, recusar, fechar, foco, FAQ, CTA e responsividade em seis larguras.');
+  console.log('OK: preços 14,90/24,90, oferta de 17,90, fechar, foco, FAQ, CTA e responsividade em seis larguras. Destinos verificados por verify-checkouts.mjs.');
 } finally {
   await browser.close();
 }

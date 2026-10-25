@@ -25,7 +25,7 @@ npm.cmd run preview
 
 Edite `src/config.ts` para alterar nome, preços, condições, textos, imagens, links HTTPS de checkout, e-mail de suporte e links dos documentos legais. O Essencial custa R$ 14,90 e o Completo custa R$ 24,90, com pagamento único. Ao clicar no Essencial, um popup oferece o Completo por R$ 17,90, incluindo os quatro bônus por mais R$ 3,00. Aceitar segue para o checkout especial; recusar segue para o Essencial. Fechar o popup ou pressionar Escape retorna à página sem selecionar uma compra.
 
-Os três checkouts estão vazios, porque nenhum link foi fornecido. Configure `plans.essential.checkoutUrl` para R$ 14,90, `plans.complete.checkoutUrl` para R$ 24,90 e `upgradeOffer.checkoutUrl` para o Completo por R$ 17,90. A oferta especial exige um link próprio; ela não reutiliza o checkout de R$ 24,90. Enquanto os destinos estiverem vazios, cada escolha mostra a indisponibilidade com o plano e o preço escolhidos, sem simular pagamento. As duas opções do Completo também exigem `bonusesReady: true`: ative somente depois de produzir e revisar os quatro bônus. O e-mail de suporte, quando configurado, aparece no diálogo de indisponibilidade. O cabeçalho de navegação, o rodapé completo e as instruções de recebimento foram removidos a pedido. Os botões de compra têm efeito 3D e pulsação suave, desativada quando o dispositivo solicita movimento reduzido.
+Os três checkouts Wiapy fornecidos estão configurados: `plans.essential.checkoutUrl` usa `https://pay.wiapy.com/IPZb58bM65az` (R$ 14,90), `plans.complete.checkoutUrl` usa `https://pay.wiapy.com/oy8QeLCFUlw` (R$ 24,90) e `upgradeOffer.checkoutUrl` usa `https://pay.wiapy.com/BYUp6V_B_1fp` (popup de R$ 17,90). As ofertas com bônus estão habilitadas por `bonusesReady: true`. Essa opção controla a disponibilidade dos botões; a entrega dos arquivos deve ser configurada na plataforma de pagamento. O script UTMify fornecido está no `<head>` de `index.html`, com os atributos `data-utmify-prevent-xcod-sck` e `data-utmify-prevent-subids`. O e-mail de suporte, quando configurado, aparece no diálogo de indisponibilidade. O cabeçalho de navegação, o rodapé completo e as instruções de recebimento foram removidos a pedido. Os botões de compra têm efeito 3D e pulsação suave, desativada quando o dispositivo solicita movimento reduzido.
 
 Atualize também os metadados em `index.html` se mudar o nome ou as características do produto.
 
@@ -37,13 +37,13 @@ Consulte a lista completa em `public/assets/README.md` e `public/assets/pendenci
 
 As imagens da página usam WebP, com as dimensões originais e transparência preservadas. As cinco páginas com textos e medidas e o selo da garantia usam compressão sem perdas; as demais usam qualidade 90. Os PNGs anteriores e as imagens sem uso na Mini Mundos foram removidos da pasta `img` do workspace. No celular, o selo fica acima do título da garantia, e o título e o texto ficam centralizados.
 
-As cinco prévias usam `object-fit: contain`, preservando textos e medidas sem cortes, sem legendas ou numeração adicionadas pela página. O carrossel percorre as imagens em loop contínuo, sem controles visuais, enquanto está visível. Uma segunda sequência das mesmas imagens permite a passagem da última à primeira sem retorno visível; essas cópias são ocultadas de leitores de tela e da navegação por Tab. O movimento pausa ao passar o mouse, receber foco, abrir a ampliação ou interagir por toque. `prefers-reduced-motion` desativa a rolagem automática e as cópias, mantendo a navegação manual. A ampliação mostra a imagem no tamanho disponível, permite rolagem vertical e navegação entre as prévias, e pode ser fechada com Escape, botão Fechar ou clique no fundo. A presença das capas dos bônus não comprova que seus PDFs estão prontos: `bonusesReady` continua desativado.
+As cinco prévias usam `object-fit: contain`, preservando textos e medidas sem cortes, sem legendas ou numeração adicionadas pela página. O carrossel percorre as imagens em loop contínuo, sem controles visuais, enquanto está visível. Uma segunda sequência das mesmas imagens permite a passagem da última à primeira sem retorno visível; essas cópias são ocultadas de leitores de tela e da navegação por Tab. O movimento pausa ao passar o mouse, receber foco, abrir a ampliação ou interagir por toque. `prefers-reduced-motion` desativa a rolagem automática e as cópias, mantendo a navegação manual. A ampliação mostra a imagem no tamanho disponível, permite rolagem vertical e navegação entre as prévias, e pode ser fechada com Escape, botão Fechar ou clique no fundo. A presença das capas dos bônus não comprova que seus PDFs estão prontos.
 
 ## Antes de abrir as vendas
 
 1. Adicionar e revisar o PDF original. Os mockups, as prévias e as imagens das seções atuais já foram fornecidos.
-2. Produzir e revisar os quatro bônus antes de ativar `bonusesReady`.
-3. Configurar os três links de checkout, o contato de suporte e os documentos legais.
+2. Produzir, revisar e configurar a entrega dos quatro bônus na plataforma de pagamento.
+3. Configurar o contato de suporte e os documentos legais. Os três links de checkout já estão integrados.
 4. Conferir preço, garantia, acesso por e-mail e a entrega real na plataforma de pagamento.
 5. Fazer uma compra de teste na plataforma escolhida. Esta landing page apenas direciona ao checkout; o pagamento, envio por e-mail e reembolso pertencem à plataforma.
 
@@ -57,6 +57,6 @@ node scripts/verify-gallery.mjs
 node scripts/verify-checkouts.mjs
 ```
 
-Os scripts usam Playwright com Chrome/Edge instalado, ou `BROWSER_EXECUTABLE` para informar outro caminho. Verificam os carrosséis, a direção e o loop das cenas, accordion, âncora do CTA, mensagens dos checkouts, fechamento por Escape, ausência de overflow em seis larguras de 320 a 1440 px e erros de JavaScript. Capturas locais ficam em `.qa/` (ignorado).
+Os scripts usam Playwright com Chrome/Edge instalado, ou `BROWSER_EXECUTABLE` para informar outro caminho. Verificam os carrosséis, a direção e o loop das cenas, accordion, âncora do CTA, destinos dos checkouts, fechamento por Escape, ausência de overflow em seis larguras de 320 a 1440 px e erros de JavaScript. Capturas locais ficam em `.qa/` (ignorado).
 
-`verify-checkouts.mjs` usa o servidor de desenvolvimento Vite e injeta três URLs fictícias somente no navegador de teste. Verifica se aceitar, recusar e comprar diretamente usam os destinos distintos. Nenhum pagamento real é feito e os arquivos de configuração permanecem inalterados.
+`verify-checkouts.mjs` funciona com o servidor de desenvolvimento ou preview. Verifica os três destinos Wiapy configurados e a inserção do script UTMify com seus atributos. Os destinos de pagamento e o script externo são interceptados no navegador de teste. Nenhum pagamento real é feito e os arquivos de configuração permanecem inalterados.

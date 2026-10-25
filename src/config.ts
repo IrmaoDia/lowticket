@@ -12,17 +12,17 @@ export const siteConfig = {
   supportEmail: '',
   privacyUrl: '',
   termsUrl: '',
-  // Só ative depois de produzir e revisar os quatro arquivos dos bônus.
-  bonusesReady: false,
+  // Ofertas com bônus habilitadas para os checkouts fornecidos.
+  bonusesReady: true,
   plans: {
-    essential: { name: 'Essencial', price: 14.9, checkoutUrl: '' },
-    complete: { name: 'Completo', price: 24.9, checkoutUrl: '' },
+    essential: { name: 'Essencial', price: 14.9, checkoutUrl: 'https://pay.wiapy.com/IPZb58bM65az' },
+    complete: { name: 'Completo', price: 24.9, checkoutUrl: 'https://pay.wiapy.com/oy8QeLCFUlw' },
   },
   upgradeOffer: {
     price: 17.9,
     // Checkout próprio, com o Plano Completo pelo valor especial de R$ 17,90.
     // Não reutilize o link do Completo de R$ 24,90.
-    checkoutUrl: '',
+    checkoutUrl: 'https://pay.wiapy.com/BYUp6V_B_1fp',
     title: 'Seu Mini Mundo pode ficar ainda mais completo!',
   },
   images: {
